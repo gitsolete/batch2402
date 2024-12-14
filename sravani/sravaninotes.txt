@@ -1,0 +1,935 @@
+batch2402@awco.in
+salesforce12345
+
+Apex Architecture
+Variables 
+Datatypes
+Controlflow statements
+
+
+Automation - programs - Data 
+
+Variables - address ofthe memory location 
+<datatype> <variablename>=<value>;
+
+String studentName='Sravani';
+String studentPhone='64654664';
+String studentAddress='hydere';
+Integer studentRollno=1002;
+
+
+Datatypes 
+	Integer - numbers [0-9]
+	String - every character in keyboard
+	double - 123.45
+	Date - 
+	Datetime - 
+	Id - recordid
+	boolean - True/False
+	blob
+Integer, Double, Long, Date, Datetime, String, ID, or Boolean 
+non primitive Dt 
+	salesforce objects 
+	
+	
+how to display log information / 
+System.debug('Student name::sravani');
+system.debug('course::salesforce');
+system.debug('phone::464646');
+system.debug('address::hyderabad');
+
+
+String studentName='Sravani';
+Integer stdrollNo=104;
+String stdAddress='hyd',stdphone='54646464';
+System.debug('Student name=='+studentname);
+system.debug('student rollno=='+stdrollNo);
+system.debug('student address::'+stdaddress);
+system.debug('student phone-->'+stdphone);
+
+
+Operators
+Assignment 
+	=,+=,-=,*=
+	
+conditional operators true/false 
+	<,>,<=,>=,!=,==
+	
+	left variable/value > right variable/value 
+		5>6  = false
+		5>=6 = false
+		6>=6 = true 
+		
+		a>b , a==b 
+	
+Logical
+	&&, ||
+	and OR
+T T T T
+T F F T
+F T F T
+F F T F 
+	complex conditions 
+	
+increment and decrement 
+++
+--
+
+Ternary operator 
+ ?:
+ condition?True:false 
+	
+airthmatic operators 
+ +,-,*,/
+ 
+ 
+Integer a=0;
+system.debug(a);
+a=a+1; // a=0+1;  1
+system.debug(a);
+a+=2; //a=a+2;
+system.debug(a);
+a++;  //a=a+1;
+system.debug(a);
+
+
+
+
+//w.a.p to find the big value a and b
+//input a,b
+integer a=52,b=6,c,j,k;
+integer res;
+System.debug(a>b?'a is big':'b is big');
+
+String result=a>b?'a is big':'b is big';
+system.debug(result);
+
+res=a>b?a:b;
+system.debug(res);
+
+//w.a.p to find the big value a and b and c
+//input a,b,c
+integer a=52,b=678,c=90,j,k;
+string result=(a>b && a>c) ? 'a is big' : (b>a && b>c)?'b is big':'c is big';
+system.debug(result);
+
+//w.a.p to find the big value a and b and c
+//input a,b,c
+integer a=2,b=2,c=2,j,k;
+string result=(a>b && a>c) ? 'a is big' : (b>a && b>c)?'b is big':(c>a && c>b)?'c is big':'all equal';
+system.debug(result);
+
+
+Integer productcode=5555;
+string productname='laptop';
+boolean isinstock=True;
+Decimal unitprice=4000;
+Date manufacturedate=system.today();
+Date expirydate=system.Today().Adddays(90);
+	//Date.newinstance(yyyy,mm,dd)
+
+system.debug('product code::'+productcode);
+system.debug('product name::'+productname);
+system.debug('jisinstock::'+isinstock);
+system.debug('unitprice::'+unitprice);
+system.debug('manufaccture date::'+manufacturedate);
+system.debug('expiry date::'+expirydate);
+
+
+sobject datatype 
+	Account  acc;
+	Contact  con;
+	orders    ord;
+	student__c  stdp;
+	
+	
+w.ap to calculate simpleinterest
+ptr/100
+
+input variable   - p,t, r
+output varaibles - intamount
+Integer intamount, principle,tenure,roi;
+principle=100000;
+tenure=5;
+roi=10;
+intamount=principle*tenure*roi/100;
+system.debug('interest amount::'+intamount);
+
+
+
+wap to calucllate bill amont basedon quantity and unitprice 
+ip - quantity, unitprice
+op - totalbill
+Decimal unitprice=100.5,quantity=5,totalbill=unitprice*quantity;
+system.debug('total bill amount::'+totalbill);
+
+
+MVC architecture 
+	m =model (database schema)
+	v = view (UI, frontend / vf pages, html,css)
+	c = controller (business logic standard logics, custom logic)
+	
+	
+Control flow statements 
+	
+if condition
+switch 
+ternary operator
+while
+for 
+foreach
+
+
+Condiitiona 
+if condition 
+
+syntax 
+	if(condition){
+		//block of code
+	}
+	
+if(constion){
+ //true block
+}
+else{
+//false block
+}
+
+//wap airthmatic operations
+integer a,b,c;
+a=10;b=0;c=0;
+
+system.debug('sum of two numbers::'+(a+b));
+c=a*b;
+system.debug('multiplication ::'+c);
+system.debug('substraction::'+(a-b));
+if(b!=0){
+  system.debug('division ::'+(a/b));  
+}else{
+    system.debug('b value should not be zero');
+}
+
+
+wap to define the rank class based on the total marks 
+ip- t,m,e,s,so
+calculations - totalmarks
+op - resultclass
+greaterthan 580 - frist class 
+greaterthan 500 and lessthan 580 - second class 
+greaterthan 450 and lessthan 500 - third class 
+
+
+
+wap to find big among a,b,c
+integer a=5,b=5,c=5;
+
+if(a>b && a>c){
+    system.debug('a isbig');
+}
+else if(b>a && b>c){
+    system.debug('b is big');
+}
+else if(c>a && c>b){
+    system.debug('c is big');
+}
+else{
+    system.debug('all are equal');
+}
+
+wap to define the season 
+monthno				sesaon name
+1-4					winter
+5-8					summer
+9-12				spring
+<1 or >12			invalid moonth number 
+
+
+ip : monthno   - integer 
+op : seasonname - string 
+
+
+integer mn=5;
+string sn;
+system.debug(mn);
+system.debug(sn);
+
+if(mn>0&&mn<=4){
+    sn='winter';
+}
+else if(mn>4&&mn<=8){
+    sn='summer';
+}
+else if(mn>8&&mn<=12){
+    sn='spring';
+}
+else{
+    sn='not a valid month number';
+}
+system.debug('season name:'+sn);
+
+
+nested if 
+
+if(condition){
+	if(condition){
+	}
+	else{
+		if(condition){
+		}		
+	}
+}else{
+}
+
+
+
+SWITCH statement
+-----------------
+switch on <expression>
+{
+	when <value>{}
+	when <value>{}
+	when <value>{}
+	wher else{
+	
+	}
+}
+
+
+integer mn=5;
+string sn;
+switch on mn{
+    when 1,2,3,4{
+        sn='winer';
+    }
+    when 5,6,7,8{
+        sn='summer';
+    }
+    when 9,10,11,12{
+        sn='spring';
+    }
+    when else{
+        sn='invalid month';
+    }
+}
+system.debug('seasonname::::::'+sn);
+
+
+Iterative statement
+-------------------
+while
+do-while
+for
+enhanced for (for each) 
+
+
+
+while(condition){
+
+//block
+
+}
+
+do-while
+do{
+//block 
+}while(condition);
+
+
+
+wap toprint odd numbers 
+wap to print even numbers 
+wap to print prime numbers
+wap to check the given numbe is prime number or not 
+wap to swap the values
+wap find lcm 
+
+
+integer stid=100,stdid2=101,stdid3=102; 
+stdid=100;
+stdid=101;
+
+ARRAYS
+-------
+collection of homogeneous elements 
+static memory allocation
+
+<datatype>[] variablename=new <datatype>[size];
+
+integer[] stdid=new integer[10];
+string[] stdname=new string[10];
+id[] recordids=new id[10];
+Account[] accountarray=new Account[30];
+lead[] leadarray=new lead[20];
+opportunity[] opparray=new opportunity[24];
+hiringmanager__c[] hmgrarray=new hiringmanager__c[20];
+position__c[] positionarray=new position__c[20];
+student__c[] stdarray=new student__c[34];
+
+
+
+index based access 
+0-9
+
+for(intialcount;condition;increment/decrement){
+	//block
+}
+
+for(index=0;index<=4;index++){
+	system.debug(stdid[index]);
+}
+
+for(index=0;index<=4;){
+	system.debug(stdid[index]);
+	index++;
+}
+
+integer index=0;
+while(index<=4){
+system.debug(stdid[index]);
+index++;
+}
+
+
+enhanced for loop /for each 
+
+for(<datatype> varaible:collection/array){
+	//block 
+}
+
+u cannot process in reverse order 
+we cannot get specific element 
+foward cursor
+
+
+integer[] stdid=new integer[5];
+string[] stdname=new string[3];
+system.debug(stdname);
+system.debug(stdid);
+stdid[0]=34;
+stdid[1]=45;
+stdid[2]=56;
+stdid[3]=5;
+stdid[4]=56;
+system.debug(stdid);
+system.debug(stdid[0]);
+system.debug(stdid[1]);
+system.debug(stdid[2]);
+system.debug(stdid[3]);
+system.debug(stdid[4]);
+Integer studentid=stdid[2];
+system.debug(studentid);
+system.debug('stdid array size:::'+stdid.size());
+for(Integer i=0;i<stdid.size();i++){
+    system.debug('stdid['+i+']::'+stdid[i]);
+}
+
+for(Integer stdno:stdid){
+    system.debug(stdno);
+}
+
+for(integer i=stdid.size()-1;i>=0;i--){
+     system.debug('stdid['+i+']::'+stdid[i]);
+}
+
+array drawbacks
+---------------
+static memory allocation 
+u cannot increase/decrese 
+no much predefined function
+u cannot insert/delete specific directly
+
+
+wap to sum of array elements
+wap to find the max of array element
+wap to find the mix of array element 
+wap to replace the 3rd index value and debug the array 
+wap to sort the array elements 
+wap to create an array with size 10 and insert new elemnt 400 in index 3 //11
+wap to delete 4th index value from an array 
+
+
+wap to sort the array elements 
+integer[] stdarray=new integer[]{5,4,2,31};
+integer temp;
+system.debug('Before sorting::'+stdarray);
+for(integer i=0;i<=stdarray.size()-1;i++){
+    for(integer j=0;j<=stdarray.size()-1;j++){
+        if(stdarray[i]<stdarray[j]){
+            temp=stdarray[i];
+            stdarray[i]=stdarray[j];
+            stdarray[j]=temp;
+        }
+    }
+}
+system.debug('After sorting::'+stdarray);
+
+
+
+
+SOBJECTS Datatypes
+------------------
+salesforce object 			standard controller /class
+	Account                    Account
+	contact						Contact
+	lead							Lead
+	opportunity					opportunity
+	order						order
+	product				product
+	case					case	
+	solution				solution
+	campaing				campaing
+	student__c					student__c
+	postion__c				postion__c
+	hiringmanager__c		
+	
+if u create an object 
+	1. object (table)
+	2. tab 
+	3. Class/controller business llogic 
+	
+	insert,delete, update, undelete .... dml 
+	
+Account acc=new Account();
+acc.firstname=uservalue
+acc.lastname uservalue
+acc.phone=uservalue
+acc.email=uservalue
+insert acc;
+
+LEad ld=new lead();
+opportunity opp=new opportunity();
+hiringmanager__c hmgr=new hiringmanager__c();
+
+Account acc=new Account();
+system.debug(acc);
+acc.name='infosys';
+acc.phone='11111111';
+system.debug(acc);
+
+contact con=new contact();
+system.debug(con);
+con.lastname='kumar';
+con.firstname='pawan';
+con.phone='555555';
+system.debug(con);
+
+HiringManager__c hmgr=new HiringManager__c();
+system.debug(hmgr);
+hmgr.name__c='chiranjeevi';
+system.debug(hmgr);
+
+Account[] accountarray=new Account()[5];
+Account[] accountarray=new Account[3];
+system.debug(accountarray);
+Account acc1=new Account();
+acc1.name='charan';
+acc1.phone='3234234';
+system.debug(acc1);
+accountarray[0]=acc1;
+Account acc2=new Account();
+acc2.name='kusala';
+acc2.phone='3234234';
+system.debug(acc2);
+accountarray[1]=acc2;
+system.debug(accountarray);
+
+
+Contact[] conarray=new contact[3];
+contact con=new contact();
+con.lastname='kumar';
+con.phone='123123';
+conarray[0]=con;
+contact con1=new contact();
+con1.lastname='tatcon';
+con1.phone='123123';
+conarray[1]=con1;
+contact con2=new contact();
+con2.lastname='tatcon';
+con2.phone='123123';
+conarray[2]=con2;
+system.debug(conarray);
+
+
+public class Account{
+
+//block
+}
+
+public class lead{
+
+//block
+}
+
+public class hiringmanager__c{
+
+//block
+
+}
+
+save
+quicksave
+cancel
+delete
+first
+next
+previous
+last
+hasprevious
+hasnext
+
+
+public class Account{
+
+//members
+public Id id, ownerid;
+
+public String name,rating, industry,type,phone,fax,website,biliingcity,billingstate,billingcountry,.....etc
+
+public datetime lastmodifeddate, createddate;
+
+public Decimal annualrevenue;
+
+public Boolean both_address_same__c;
+
+.......
+
+
+//member functions 
+
+public void save(){
+	//it will insert record to db and re-direct to record detail page 
+}
+
+public void cancel(){
+	//it will abort your current operation
+}
+
+public void delete(){//it will the current record}
+
+public void quicksave(){ //it will save the reocrd into the associated object and user will stay in same page}
+
+//pagniation methods
+public void next(){
+	it will load the next set of records in the paginatioin
+}
+
+public void fist(){
+	//it will load first set of records in pagination
+}
+
+public void previous(){
+
+	it will load the prevois set of records
+}
+
+public void last(){
+	it will load last set of records
+}
+
+public boolean hasprevious(){
+	// it will return true if it is having prevous set of records in the  pagnation else ir return false 
+}
+
+public boolean hasnext(){
+	//it will return true if it is having next set of record in the pagniation else it return false 
+}
+
+}
+
+
+
+<classname> classobject=new <classname>();
+Account acc=new Account();
+
+
+Account acc=new Account();
+acc.name='tayota';
+acc.phone='234234234';
+acc.active__C='yes';
+system.debug(acc);
+insert acc;
+if(acc.id!=null){
+    system.debug('account record inserted with record id::'+acc.id);
+}
+
+
+account - contact 
+Account acc=new Account();
+insert acc;
+acc.name='tayota';
+acc.phone='234234234';
+acc.active__C='yes';
+system.debug('account record inserted with record id::'+acc.id);
+system.debug(acc);
+if(acc!=null){
+    insert acc;
+}
+
+if(acc.id!=null){
+    system.debug('account record inserted with record id::'+acc.id);
+}
+
+
+Account acc=new Account();
+acc.name='city bank';
+acc.rating='hot';
+acc.phone='234234';
+acc.website='www.citi.com';
+acc.fax='234234';
+acc.active__C='yes';
+acc.annualrevenue=234234;
+acc.industry='banking';
+if(acc!=null){
+    insert acc;
+    system.debug(acc);
+    if(acc.id!=null){
+        system.debug('account is created with recordid::'+acc.id);
+    }
+}
+
+
+wap to insert hiringmanager__c record 
+
+wap to build bulk records hiringmanager__c
+
+for(integer i=1;i<=10;i++){
+    hiringmanager__c hmgr=new hiringmanager__c();
+    hmgr.name__C='bulkexample'+i;
+    hmgr.phone__c='234234';
+    hmgr.email__C=hmgr.name__c+'@awc.co.in';
+    hmgr.location__C='hyd';
+    insert hmgr;
+    system.debug(hmgr);
+}
+
+oops 
+	class 
+	access modifier
+associate records 
+
+
+hiringmanager__c hmgr1=new hiringmanager__c();
+hiringmanager__c hmgr2=new hiringmanager__c();
+hiringmanager__c hmgr3=new hiringmanager__c();
+hiringmanager__c hmgr4=new hiringmanager__c();
+hiringmanager__c hmgr5=new hiringmanager__c();
+
+insert hmgr1;
+insert hmgr2;
+insert hmgr3;
+insert hmgr4;
+insert hmgr5;
+insert single/collection;
+
+hiringmanager__c[] hmgrarray=new hiringmanager__c[5];
+hmgrarray[0]=hmgr1;
+hmgrarray[1]=hmgr2;
+hmgrarray[2]=hmgr3;
+hmgrarray[3]=hmgr4;
+hmgrarray[4]=hmgr5;
+
+insert hmgrarray;
+
+
+
+oops concepts 
+	structured programs
+	oops 
+		classes and objects 
+	
+properties 
+	variables/members 
+functionalities 
+	
+	
+<accessspecifier> class <classname>{
+
+	//members 
+	
+	//functions 
+}
+
+Accessspecifier  
+	private	- within the class only 
+	public - members can access within the clss and outside of the class 
+	protected - within the class from all the derived class (child classes)
+	global  - with the cllass with the organization and outside of the organization
+		all the batch clases schedule, ....
+
+inheritance, abstaction, polymorhism, encapsullation 
+
+Inheritance 
+
+public class studentdetails{
+	//members 
+	public string stdname;
+	public integer stdno;
+	public decimal gender;
+	public string course;
+	public string address;
+}
+
+public class productdetails{
+	public string prdname;
+	public string prdno;
+	public datetime prdmandate;
+	public datetime prdexpdate;
+	public decimal unitprice;
+}
+
+
+object
+-------
+by  creating an object to the class we can access members and member functions 
+
+<classname> objectname=new classname();
+
+classnem objectname;
+objectname=new classname;
+
+
+
+Account acc=new Account();
+contact con;
+con=new contact();
+
+
+
+public class employeedetails{
+    
+    public string empname,designation;
+    public integer emid;
+    public boolean isactive;
+    public date joiningdate;
+}
+
+employeedetails empobj=new employeedetails();
+system.debug(empobj);
+
+empobj.empname='pavan';
+empobj.emid=23423;
+empobj.isactive=True;
+empobj.joiningdate=system.today();
+empobj.designation='salesforce dev';
+
+system.debug(empobj);
+
+system.debug('emoyeename::'+empobj.empname);
+string employeename=empobj.empname;
+
+system.debug(employeename);
+
+
+mathoperations mobj=new mathoperations();
+system.debug('a value::'+mobj.a);
+system.debug('b value::'+mobj.b);
+system.debug('c value::'+mobj.c);
+
+//opoerations
+mobj.c=mobj.a+mobj.b;
+system.debug('sumresult::'+mobj.c);
+
+mobj.a=100;
+mobj.b=56;
+mobj.c=4;
+system.debug('a value::'+mobj.a);
+system.debug('b value::'+mobj.b);
+system.debug('c value::'+mobj.c);
+
+//opoerations
+mobj.c=mobj.a-mobj.b;
+system.debug('sub result::'+mobj.c);
+
+
+function
+-----------
+<accessspecifier> <returntype/datatype/void> functionname(datatype1 param1,database2 param2.....datatypen paramn){
+
+	//body the function 
+	
+	return <value>;
+
+}
+
+returntype 
+	value  - dataype of the value 
+	nothing - void 
+
+	public 
+	
+parameterized functions
+non-parameterized functions 
+
+
+function defination
+function calling 
+
+
+REUSABLIITY 
+
+varlox plugin
+
+wap to create account record and its associated contact record 
+Account 
+	multiple contacts 
+	
+	
+create class account 
+	use in account 
+	account record with recordid
+create contact class 
+	contact lo reference 
+	while creating the contact record we have to provide accountid=account.id 
+	
+	
+Account accobj=new Account();
+accobj.name='dell';
+accobj.phone='8979';
+accobj.fax='234234234';
+accobj.Active__c='yes';
+if(accobj!=null){
+    insert accobj;
+}
+system.debug('account created::'+accobj);
+if(accobj.id!=null){
+    Contact con=new contact();
+    con.lastname='dellcon1';
+    con.phone='989898';
+    con.accountid=accobj.id;
+    if(con!=null){
+        insert con;
+        system.debug('contact record::'+con);
+    }
+}
+
+
+variable - scope of the variable 
+			
+wap  to create hiringmanager__c records and its associate position record 
+
+wap to create hiringmanager__c and its associated task record 
+
+
+wap to create an account and it associated case 
+wap to create hiringmanager__c records based on specified number
+
+
+wap to create 20 lead records 
+wapex class to insert 50 contacts 
+wap to create hiringmanager__c and associated position records 
+wap to create lead record base on specified number 
+wap to insert contact based onspecified number 
+wap to create account and its associated 2 contacts, 5 oppotunities 
+account
+	contact 2
+	opportunity 5
+wap to create hiringmanager__c and  its associated position and 3 associated candidate records 
+hiringmanager__c
+	position
+		3 candidates 
+
+
+Constructor 
+Collections 
+
+
