@@ -929,7 +929,55 @@ hiringmanager__c
 		3 candidates 
 
 
-Constructor 
+Constructor
+================
+member function 
+Constructor will get execute upon creatioin of class in memory automatic.
+Constructor are used to set the default values ot the class members 
+
+rules
+	1.name should be class name
+	2. always defined with  public access 
+	3. does not return anything
+	4. we can define one or more Constructors
+	5. one Constructor can call another constructor 
+
+public <classnmae>(){
+  //logic 
+}
+
+public producthelper(){
+	public producthelper(){
+	
+	}
+
+}
+ 
+wehen we create an object to the class apex compiler will create default constructor and it gets executed
+
+
+types of Constructors
+
+non-param constructor
+	public class producthelper{
+		public producthelper(){
+		}
+
+	}
+parm constructors
+	public class producthelper{
+		public producthelper(integer par1,string pr2....){
+
+		}
+	}
+
+producthelper prdobj=new producthelper();
+
+
+wap to create apex class to define default constructor and assign the values to the cosustomer 
+
+
+
 Collections 
 
 
