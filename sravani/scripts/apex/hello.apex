@@ -1,2 +1,5 @@
-customerHelper cusobj=new customerHelper();
-cusobj.showvalues();
+//customerHelper cusobj=new customerHelper();
+//cusobj.showvalues();
+
+
+system.debug('welcome');

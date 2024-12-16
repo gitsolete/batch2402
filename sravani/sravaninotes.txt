@@ -979,5 +979,134 @@ wap to create apex class to define default constructor and assign the values to 
 
 
 Collections 
+===================
+List
 
+Set 
+Map 
+
+LIST 
+------
+list is a order collection which preserves the insertion order. 
+homogeneous and heterogeneous elements to store
+dynamic memory  allocaiton - increate and decreate the size of the list
+primitive datatypes and non-primitive datatype
+it allows duplicate values
+syntax
+List<datatype> listname=new List<datatype>();
+
+
+List<Integer> stdidlist=new List<Integer>();
+List<string> stdnamelist=new list<STring>();
+List<Boolean> stdactivelist=new list<boolean>();
+list<Id> stdrecid=new list<Id>();
+List<Account> accountlist=new list<Account>();
+list<Lead> leadlist=new list<lead>();
+list<hiringmanager__c> hmgrlist=new list<hiringmanager__c>();
+
+
+
+methods
+---------
+
+add 
+  stdidlist.add(103);
+  stdnamelist.add('pavan');
+
+addall(<collectioni>)
+	string[] stdnamearray=new string[]{'pavan','sravani'};
+	stdnamelist.addall(stdnamearray);
+
+
+add(position,element)
+	stdidlist.add(2,55);
+
+
+size()
+	stdislist.size();
+
+
+boolean isempty()  
+	true/false
+
+void sort()
+	stdidlist.sort()
+
+remove(index/postion)
+	stdidlist.remove(4);
+
+clear()
+	stdidlist.clear();
+
+
+get(position)
+	stdidilist.get(2); 
+
+
+set(position, element)
+	it will update the new data at specified position
+	stdidlist.set(2,66);
+
+
+clone()
+	stdnewlist=stdidlist.clone();
+
+
+boolean contains(element)
+	stdidlist.contains(3);
+
+
+intger indexof(eleemnt)
+	stdidlist.indexof(66); //2
+
+
+List<String> stdnamelist=new List<String>();
+system.debug(stdnamelist);
+stdnamelist.add('pavan');
+stdnamelist.add('sravani');
+stdnamelist.add('lakshmi');
+system.debug(stdnamelist);
+stdnamelist.add(1,'kumar');
+system.debug(stdnamelist);
+system.debug(stdnamelist.size());
+String[] nameary=new string[]{'ravi','kusala','hari'};
+stdnamelist.addall(nameary);
+system.debug(stdnamelist);
+
+if(!stdnamelist.isempty()){
+    for(integer i=0;i<stdnamelist.size();i++){
+        system.debug(stdnamelist[i]);
+    }
+    for(String name :stdnamelist){
+        system.debug(name);
+    }
+}
+
+stdnamelist.add('pavan');
+stdnamelist.add('ravi');
+system.debug(stdnamelist);
+
+Boolean result=stdnamelist.contains('pavan');
+if(result){
+   system.debug('element found'); 
+}else
+    system.debug('element not found');
+
+system.debug(stdnamelist.contains('pavan'));
+
+stdnamelist.sort();
+system.debug(stdnamelist);
+
+string name=stdnamelist.remove(2);
+system.debug(name);
+system.debug(stdnamelist);
+//pavan
+
+if(stdnamelist.contains('pavan')){
+    integer p=stdnamelist.indexof('pavan');
+    system.debug('element position::'+p);
+    name=stdnamelist.remove(p);
+	system.debug('element removed::'+name);
+}
+system.debug(stdnamelist);
 
