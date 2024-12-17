@@ -1110,3 +1110,113 @@ if(stdnamelist.contains('pavan')){
 }
 system.debug(stdnamelist);
 
+SET
+--------
+inOrdered collection, default it will implment ascending on the elements 
+it wont accept duplicate values 
+dynamic, increase or decrease 
+it maintains unique values 
+set<datatype> setvaraible=new set<datatype>();
+
+
+Note:
+Apex uses a hash structure for all sets. A set is an unordered collection—you can't access a set 
+element at a specific index.  You can only iterate over set element
+
+Set<integer> stdidset=new set<integer>();
+system.debug(stdidset);
+
+stdidset.add(100);
+stdidset.add(45);
+stdidset.add(103);
+
+system.debug(stdidset);
+
+if(!stdidset.isempty()){
+   
+    for(Integer s:stdidset){
+        system.debug(s);
+    }
+}
+
+addall(collection)
+remove(element)
+contains(element)
+clear()
+equals(collection)
+
+Map
+--------
+Map<datatype,datatype> mapvar=new map<datatype,datatype>();
+
+key value pair structure 
+key - unique set of values 
+value - set of list type values 
+dynamic memory allocation
+increate or decreate 
+access values by passing keys 
+
+map<id,account> accmap=new map<id,account>();
+
+map<accountid,contactsrecords>  ==> map<id,list<contacts>>
+
+map<integer,string> stdmap=new map<integer,string>();
+
+map<string,string> usercredentials=new map<string,string>();
+
+map<id,hiringmanager__c> hmgrmap=new map<id,hiringmanager__c>();
+
+put()
+putall()
+size()
+isempty()
+	(key) - to get the value by passing key
+containskey()
+remove(key)
+clear()
+keyset() - it will return all keys - set 
+values() - it will return all values list 
+equals()
+
+
+Map<string,string> fruitmap=new Map<string,string>();
+system.debug(fruitmap);
+fruitmap.put('yellow','banana');
+fruitmap.put('orange','orange');
+fruitmap.put('red','apple');
+fruitmap.put('green','watermalon');
+fruitmap.put('yellow','papaya');
+system.debug(fruitmap);
+system.debug(fruitmap.keyset());
+for(String color:fruitmap.keyset()){
+    system.debug('Color name::'+color+'====fruitname::'+fruitmap.get(color));
+    
+}
+
+if(fruitmap.containskey('red564')){
+    system.debug(fruitmap.get('red'));
+}else{
+    system.debug('no such key');
+}
+
+fruitmap.clear();
+system.debug(fruitmap);
+
+
+bulkification
+--------------
+upon performing dml operations 
+
+
+
+Insert onerecord/collectionrecords;
+
+List<Candidate__c> canlist=new List<candidate__c>();
+for(integer i=1;i<=151;i++){
+    candidate__c can=new candidate__c();
+    can.Position__c='a05GB000018skNiYAI';
+    canlist.add(can);
+}
+if(!canlist.isempty()){
+    insert canlist;
+}
