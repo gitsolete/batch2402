@@ -1221,4 +1221,100 @@ if(!canlist.isempty()){
     insert canlist;
 }
 
-test
+Wap to crate 300 contact records 
+wap to craete hiringmanager__c,position__c and candidates
+
+
+
+SOQL - salesforce object query langauage 
+
+SELECT <COLUMN/FIELDS> FROM <OBJECTNAME> 
+	[WHERE <CONDITION>]
+	[GROUP BY <COLUMN NAME>]
+	[HAVING <COLUMN>]
+	[ORDER BY <COLUMN>]
+	[LIMIT <NO.OF RECORDS TO RETURN>]
+	[OFFSET <NO.OF RECORDS TO SKIP>]
+	[FOR UUPDATE]
+	[ALL ROWS]
+
+limits - 100 soqls can run per transaction
+never use in loop
+fetch wanted/necessary fields only 
+
+
+select id,name,active__C from account 
+select id,firstname,lastname,email,phone from lead
+select id,name,Description, Subject, Body from EmailTemplate 
+
+write soql to fetch user detail 
+select id,name,email,username from user
+
+
+
+two types 
+	static soql 
+	dynamic  soql 
+
+
+
+Static soql	
+	[static soql] 
+	executed automatically
+	we cannot edit in runtime 
+
+	[select id, name from account]
+	[select id,lastname, email from contact]
+	[select id,lastname__c,eamil__c from hiringmanager__c]
+
+
+Account accrecord=[select id,name from account];  // if the query return one record 
+if(accrecord!=null){
+	system.debug('account id::'+accrecord.id);
+	system.debug('account name::'+accrecord.name);
+}
+
+
+List<Account> accountlist =[select id,name from account]; // if the query returns multiple records 
+if(accountlist!=nul){
+	for(Account acc:accountlist){
+		system.debug('account id::'+acc.id);
+		system.debug('accou tname::'+acc.name);
+	}
+}
+
+
+wap to fetch all leads 
+
+
+
+wap to fetch all the position records and store in the map 
+key,value pair 
+Map<datatype,datatype>=new map<datatype,datatype>();
+map<key,value> = map<id,positionrecord>
+
+posmap<posid,posrecord>
+
+
+
+
+
+
+
+
+map<key,value>
+
+map<23423,'id,name'>
+
+key pass 
+map.keyset()
+map.get(key)
+
+
+wap to fetch user records and debug 
+wapto fetch account records and debug
+wap to fetch hiringmanager__c records and debug 
+wap to fetch emailtemplates
+wap to fetch al the cases in the form of map and display 
+wap ot fetch all the public georups from the
+wap to get all oppotunities in the form of map 
