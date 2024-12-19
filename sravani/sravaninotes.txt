@@ -1242,6 +1242,12 @@ limits - 100 soqls can run per transaction
 never use in loop
 fetch wanted/necessary fields only 
 
+In SOQL there are four return type:
+
+Lists<sObject>
+sObject
+Integar
+AggregateResult
 
 select id,name,active__C from account 
 select id,firstname,lastname,email,phone from lead
