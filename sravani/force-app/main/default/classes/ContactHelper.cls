@@ -16,4 +16,5 @@ public with sharing class ContactHelper {
         system.debug('contact inserted'+conlist);
         
     }
+
 }

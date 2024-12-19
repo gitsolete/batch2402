@@ -1295,13 +1295,6 @@ map<key,value> = map<id,positionrecord>
 
 posmap<posid,posrecord>
 
-
-
-
-
-
-
-
 map<key,value>
 
 map<23423,'id,name'>
@@ -1318,3 +1311,50 @@ wap to fetch emailtemplates
 wap to fetch al the cases in the form of map and display 
 wap ot fetch all the public georups from the
 wap to get all oppotunities in the form of map 
+
+
+LIMIT
+-----
+clause is used to restrict the noof records to get returned by the soql query. it is optional.
+
+Account acc=[select id,name from account limit 1];
+
+wap to gecth the 5 reocrds from cotnact and sotre in map<conid,contactrecord>
+
+ALLROWS
+--------
+select query will return the records from object. if we want retrieve the records from recycilbin(deleted records)
+
+
+
+ORDERBY clause
+--------------
+using this clause we can arrange the outcome from select query in an oder based on a column 
+
+order by <column name> 
+select id,name,active__c from account order by name
+
+if we do not specify the order the default order is ascending order .
+
+select id,name,active__c from account order by name desc 
+
+select id,Position_Status__c, Name__c, Maxpay__c, CreatedDate from Position__c order by CreatedDate  desc
+
+
+FOR update
+-----------
+we can apply lock on the requried record while fetching 
+once transaction is completed the lock has been released automatically
+
+select id,name from account for update
+
+
+
+OFFSET clause
+--------------
+used to skip the specified noof records from the resultset 
+
+pagenation 
+OFFSET clause should eb followed by limit clause 
+
+select id,name,email,phone, from account order by name limit 10 OFFSET 5

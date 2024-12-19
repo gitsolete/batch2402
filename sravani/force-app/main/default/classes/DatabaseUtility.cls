@@ -29,4 +29,44 @@ public with sharing class DatabaseUtility {
                 system.debug('position id::'+psid+'--'+posmap.get(psid));
         }
     }
+
+
+    //wap to gecth the 5 reocrds from cotnact and sotre in map<conid,contactrecord>
+    public static void getlimitcontacts(){
+        List<contact> conlist=[select id,name from contact limit 5];
+        system.debug(conlist);
+        Map<Id,Contact> conmap=new map<id,contact>();
+        for(contact con:conlist){
+            conmap.put(con.id,con);
+        }
+        system.debug(conmap);
+
+        for(Id cid:conmap.keyset()){
+            system.debug('conetence id ::'+cid+'--'+conmap.get(cid));
+        }
+    }
+
+    //example for allrows clause
+    public static void getallaccounts(){
+        List<account> acclist=[select id,name from account ALL ROWS];
+        system.debug(acclist.size());
+
+        List<account> acclist2=[select id,name from account];
+        system.debug('without all rows clause::'+acclist2.size());
+    }
+
+    //example fro offset
+
+    public static void getrecordbylimit(integer lim,integer off){
+        List<account> acclist=[select id,name from account limit:lim offset:off];
+        system.debug(acclist.size());
+    }
+
+
+    //wap to find all the accounts for which at least a contact is present
+    public static void accountwithcase(){
+        List<Account> acclist=[select id,name from Account where id 
+        IN(select accountId from Contact)];
+        system.debug(acclist);
+    }
 }
