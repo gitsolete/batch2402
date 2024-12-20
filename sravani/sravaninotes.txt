@@ -1329,7 +1329,8 @@ wap to gecth the 5 reocrds from cotnact and sotre in map<conid,contactrecord>
 
 ALLROWS
 --------
-select query will return the records from object. if we want retrieve the records from recycilbin(deleted records)
+select query will return the records from object and it will retrieve the records from 
+recycilbin(deleted records)
 
 
 
@@ -1364,3 +1365,69 @@ pagenation
 OFFSET clause should eb followed by limit clause 
 
 select id,name,email,phone, from account order by name limit 10 OFFSET 5
+
+
+select columns from objectname where conditions 
+1000
+ calcultions 
+
+
+select id,name from account where city='hyderabad'
+select id,name,active__c,billingcity from account where billingcity='hyd'
+
+select id,name,industry from account where industry='banking'
+
+SELECT Id,Industry,Name FROM Account WHERE Industry = 'energy'
+
+get lead status=closed converted
+
+select id,status,lastname,phone from lead where status='closed - converted'
+
+
+soql to get all hyderabad related positions 
+
+select id,Name__c, Location__c from Position__c where Location__c ='hyd'
+
+
+soql to get only deleted records from account object ..
+
+isdeleted = true 
+
+isdeleted = false  -- that record is not deleted
+
+select id,name,isdeleted from account where isdeleted=true allrows 
+        26 records 
+
+soql to get opportunity whose stage is prospecting and  amount greaterthan 10k
+select id,satgename,amount from opportunity where satgename='prospecting' and amount>10000
+
+
+#soql to get active users who are associated to systemadmin profile 
+select id,profile.name,isactive from user where isactive=true and profile.name='system admin'
+
+
+
+LIKE Operators
+--------------
+fetch the similar kind of information from the obejct based on specified expressioin 
+
+like operator should follow where clause 
+
+select cloumns from objecname where condition like expression 
+
+% ::  represents zero or more chanracters 
+_ ::  only  one chanracter
+
+select id,name from account where name like '%oil%'
+
+name like 'R%'  - starts with R
+name like '%kumar'  -end with kumar 
+name like '_a%'              - whose name second charater a
+whose name having 4 letters - name like '_____'
+
+address 
+
+wap to get contacts which are associated with banking industry accounts 
+
+
+

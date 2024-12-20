@@ -69,4 +69,31 @@ public with sharing class DatabaseUtility {
         IN(select accountId from Contact)];
         system.debug(acclist);
     }
+
+    //wap to get positions based on specified location
+    public static void getpositionsfromlocation(string location){
+        List<Position__c> poslist=[select id,name,name__c from Position__c where   Location__c=:location];
+        system.debug(poslist);
+        if(!poslist.isempty()){
+            //logix
+            for(Position__c posrec:poslist){
+                system.debug(posrec);
+            }
+        }
+    }
+
+    //wap to get the account reocrds based on specified name ends with kumar
+    public static void getaccountbychar(string inputstr){
+        if(inputstr!=null && inputstr!=''){
+            //fetch the acccount  records name ends  with inputstr
+            //'%kumar'
+            inputstr='%'+inputstr; 
+            system.debug(inputstr);  //%kumar
+            List<Account> acclist=[select id,name from account where name like :inputstr];
+            if(!acclist.isempty()){
+                system.debug(acclist);
+            }
+        }
+
+    }
 }
