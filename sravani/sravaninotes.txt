@@ -1428,6 +1428,36 @@ whose name having 4 letters - name like '_____'
 address 
 
 wap to get contacts which are associated with banking industry accounts 
+account - input banking - list account 
+iterate accountlist 
+   account - contaccts  
+allcontacts
+
+
+DYNAMIC SOQL
+------------
+select id,name from account 
+
+String accountquery ='Select id,';
+
+		-----
+			-----
+		accountquery=accountquery+'name,';
+		---------
+		----------
+		accountquery+='email';
+		------------
+		-------------
+		accountquery+=' from account';
+
+DATABASE.query(); - it will return list format
+
+List<sobject> objvar=Database.query(query);
+
+emailname@companyname.domainame
+pavan@gmail.com 
+.in 
+
 
 
 

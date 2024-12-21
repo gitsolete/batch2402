@@ -96,4 +96,75 @@ public with sharing class DatabaseUtility {
         }
 
     }
+
+    //wap to get contacts which are associated with banking industry accounts 
+    public static void getcontactsbyindustry(String indname){
+        if(indname!=null && indname!=''){
+           Map<id,Account> accountmap=new Map<id,account>(
+            [select id,name,industry from account where industry=:indname]);
+          system.debug(accountmap);
+          
+            //map.keyset()
+            if(!accountmap.keyset().isempty()){
+                List<Contact> conlist= [select id,lastname,email,accountId from contact where accountid IN : accountmap.keyset()];
+
+                if(!conlist.isempty()){
+                     system.debug(conlist);
+                     for(contact con:conlist){
+                         system.debug('contact name::'+con.LastName+'  '+'contact email::'+con.Email);                    
+                     }
+                 }       
+     
+            }
+        }
+    }
+
+
+    //wap to candidate records specified locaiton
+    public static void getcandidatebylocation(string candidatelocation){
+        if(candidatelocation!=null && candidatelocation!=''){
+
+            String candidatequery='SELECT ID,lastname__c,phone__c,email__c from candidate__c ';
+            candidatequery+='where Location__c=:candidatelocation';
+
+            system.debug(candidatequery);
+
+            List<Candidate__c> candidatelist=Database.query(candidatequery);
+            system.debug('candidatelist size:::'+candidatelist.size());
+            if(!candidatelist.isempty()){
+                system.debug(candidatelist);
+                for(Candidate__c can:candidatelist){
+                    system.debug('candidate name::'+can.lastname__C+'   '+'candidate phone::'+can.phone__c);
+                    system.debug('candidate email::'+can.email__C);
+                    system.debug('================================================================================');
+                }}
+            }
+        }
+
+    
+    //wap to get lead records base on input value
+    // if i supply normal string get the lead record based on lastname match
+    // if i supply emailid get the lead based on eamil match 
+    public static void getleadrecords(STring inputstring){
+        if(inputstring!=null && inputstring!=''){
+            String leadquery='select id,lastname,email,phone from lead where ';
+            if(pattern.matches('[a-zA-Z0-9+_-]+@[a-zA-Z]+.[a-zA-Z]{2,4}',inputstring)){
+                //1. if input string is lastname
+                leadquery+='email=:inputstring';
+
+            }else{
+                leadquery+='lastname=:inputstring';
+            }
+            system.debug(leadquery);
+
+            list<Lead> leadlist=database.query(leadquery);
+
+            if(!leadlist.isempty()){
+                system.debug(leadlist);
+                for(lead l:leadlist){
+                    system.debug('lead name::'+l.lastname+'   '+'lead phone::'+l.phone);
+                }
+            }
+        }
+    }
 }
