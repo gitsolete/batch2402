@@ -1459,5 +1459,61 @@ pavan@gmail.com
 .in 
 
 
+GROUP BY clause
+---------------
+
+tayota  10000
+maruthi 100000
+tayota  5000
+tata     88998
+ford     null
+
+tayota    150000
+tata      88998
+maruthi    1000000
+
+
+
+aggregate functions will take collection and return one value as result 
+
+count() - this function returns integer value which indicates no.of records exists inside the object
+count(column) - this function returns integer value, which indicates no.of values exist inside the specific column 
+			Null value not be countable
+count_distinct(columnname) - returns integer value, which indicates no.of values exist inside the object
+			it will not count Null values and repeated values
+min(columnname) - will return minimum value  
+max() - will return max value 
+sum() - return total of all values on specific 
+
+
+
+
+AggregateResult Class
+---------------------
+upon using the aggregate functions inside the soql qurey the result shoubd eb of type AggregateResult class 
+
+AggregateResult[] results=[soql query with group by clause];
+
+we can fetch each record inside the resultset by iterating the collection 
+we can fetch eaach value using Get function from resultant record 
+
+
+we have to provide alias names
+select industry, count(id) recordscount from account where industry='banking'
+
+
+select industryh, count(id) recordscount from account group by industry;
+
+
+
+HAVING clause
+-------------
+having clause is used to add one more user defined consitions along with group by clause to filter the data 
+
+always having clause used with group by clause. having clause followed by group by.
+
+
+RELATIONSHIP QUERIES
+--------------------
 
 
