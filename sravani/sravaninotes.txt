@@ -1516,4 +1516,124 @@ always having clause used with group by clause. having clause followed by group 
 RELATIONSHIP QUERIES
 --------------------
 
+parent to child (standard)
+parent to child (custom)
+child to parent (standard)
+child to parent (custom )
+
+lookupp/ master details 
+
+
+Parent to child (standard releationship)
+-----------------------------------------
+by using this approach we can get parent record and associated child records 
+
+[soql query (soql for child)]
+
+select id,name from account 
+(select id,name from cases)
+(select id,name from opportunities)
+(select id, lastname from contacts)
+
+
+we an write one ormore inner quries 
+
+Child to parent (standard releationship)
+----------------------------------------
+we can get data from child and relaeted parent records .
+
+granad grand parent 
+grand parent 
+parent
+child
+
+like this we can traverse upto 5 levels
+
+<parentobjectname>.<parent field> 
+
+account .name
+account.phone 
+
+Account.owner.lastname 
+account.owener.phone 
+
+
+wher account.active__C='yes'
+where account.owner.email='pavan@awco.in'
+
+select id,lastname, account.name,account.owenr.lastmame from contact 
+
+
+
+
+Parent to child (custom RELATIONSHIP)
+--------------------------------------
+
+__r 
+
+
+
+
+
+DML OPERATIOONS
+----------------
+insert
+update
+delete
+undelete 
+upsert
+merge 
+
+
+150 dmls can execute 
+
+best practise implement dml in bulk mode 
+avoid inside for loop 
+
+all dml statements are Atomic . prefomrming dml operation on collection of records, if any of the records get failed it
+will rollback the whole transaction.by default each dml statement behaves like implicit transaction.
+
+
+
+Insert accoutnrec;
+Insert accountlist;
+
+
+Database Class
+--------------
+we can execute your dml statements as non-Atomic or partial processing .
+
+readymade methods 
+
+
+Database.insert() methods
+-------------------------
+this method to insert one or more records
+Database.insert(collectionname);
+this method will act as insert statement.
+
+Database.SAveresult[] <object>=Database.insert(collecitonname,Boolean Allornothing);
+	True - it performs like atomic 
+	False - it performs like non-atomic/partial processing 
+
+
+Boolean isuccess() - True,false 
+Id getid()
+geterrors()
+
+Database.Error[] errors =object.geterrors();
+
+getmesage()
+getstatuscode()
+getfields()
+
+
+
+
+delete operations
+-------------------
+Delete collectionname /record;
+
+Database.deleteresult[] results=Database.delete(collection,True/false);
+
 

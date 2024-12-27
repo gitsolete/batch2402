@@ -167,4 +167,57 @@ public with sharing class DatabaseUtility {
             }
         }
     }
+    
+    
+    //wap to get the total noof records in account object
+    public static void getaccountreccount(){
+        Integer reccount=[select count() from account];
+        system.debug('total account records::'+reccount);
+        
+        
+        //dynamic query 
+        string accquery='select count() from Account';
+        Integer count=Database.countquery(accquery);
+        system.debug('dynamic count::'+count);
+    }
+    
+    
+    //wap to get the list of all industries and no.of accounts associatedwith each industry
+    //
+    public static void getaccountindustrywithcount(){
+        
+       AggregateResult[] results=[select industry, count(id) recordscount from account group by industry];
+       
+        for(AggregateResult result:results){
+            system.debug('Industry NAme:'+result.get('industry')+'--Count::'+result.get('recordscount'));
+        }
+        
+    }
+    
+    
+    //wap to display the industry names, no.of records each industry which are hving minimum 2 records inside the group
+    //
+    public static void getaccountindustrywithcount1(){
+        AggregateResult[] results=[select industry, count(id) recordscount 
+                                   from account 
+                                   group by industry 
+                                   having count(id)>2
+                                  ];
+       
+        for(AggregateResult result:results){
+            system.debug('Industry NAme:'+result.get('industry')+'--Count::'+result.get('recordscount'));
+        }
+    }
+    
+    //wap to get all the duplicate account records based on the account name 
+    //
+    public static void getduplicateaccount(){
+        Aggregateresult[] results=[select name , count(id) recordscount from account
+                                  group by name
+                                  having count(id)>1];
+        system.debug('duplicate count size...'+results.size());
+        for(Aggregateresult result:results){
+            system.debug('account name:::'+result.get('name')+'----count::'+result.get('recordscount'));
+        }
+    }
 }

@@ -3,3 +3,5 @@
 
 
 system.debug('welcome');
+
+DMLUtility.insertbulkcases(20);
