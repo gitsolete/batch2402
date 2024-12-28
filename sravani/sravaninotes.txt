@@ -1637,3 +1637,76 @@ Delete collectionname /record;
 Database.deleteresult[] results=Database.delete(collection,True/false);
 
 
+undelete
+-------------
+
+used to restore the records fromrecyclebin . we canfetch records from the object 'isdeleted' field 
+
+undelete single recoord/collection;
+
+Database.Undeleteresult[] results =database.undlete(collection,True/false);
+
+
+UPDATE statement
+-----------------
+1.  get the records which needs to be changed
+2. change the values in wanted fields 
+3. update operation 
+
+cross check 
+4. get the records based on the new values 
+5. if records exists update is success 
+
+
+
+update record/collection;
+
+
+
+wap to assign all the unassociated contacts to specific account 
+wap to change lead status to 'closed - converted ' which are having annualrevenue >2000000
+wap to change the ownership of the accounts to 'user2' which are energy industry 
+wap to insert 450 leads by implementing paretial processing 
+wap to delete the contaect records which are created in last week
+wap to remove, all contacts which are not associated with any account record
+wap to delete all the hiringmanagers whose emailid starts with 'test'
+wap to restore the hiringmanager records whose locatioin is hyd 
+wap to print the accountids whose contacts count > 10 
+wap to synchoronize the fax,phone,email of contacts with associated account 
+
+
+
+upsert statement
+-----------------
+update + insert  
+id, new records (which are not comitted)
+
+upsert record/collections;
+
+database.upsertresult[] results=database.upsert(collection,true/false);
+
+  boolean iscreated() 
+  true - reocrd created 
+  false - record updated 
+
+MERGE 
+--------
+to combile multiple records  into single records 
+
+merge operation can be done on account/contact/lead 
+
+upto 3 records we can merge 
+
+merge <target/parent> source/child;
+
+merge ac1 ac2;  // ac2 infor will save to ac1 and ac2 will removed fromobject 
+
+
+
+
+
+
+
+
+
+

@@ -93,4 +93,102 @@ public with sharing class DMLUtility {
         //delete[select id,lastname from contact where lastname like :stringchar];
         }
     }
+
+
+    //undelete 
+    public static void undeletecontact(){
+        List<Contact> conlist= [select id,lastname,email,phone from contact where isdeleted=true all rows];
+        system.debug(conlist);
+
+        Database.undeleteresult[] results=database.undelete(conlist,false);
+        for(database.UndeleteResult result :results){
+            if(result.isSuccess()){
+                system.debug('record is been restored successfully'+result.id);
+            }
+            else{
+                for(Database.Error err:result.getErrors()){
+                    system.debug('error code:'+err.getStatusCode());
+                    system.debug('error message:'+err.getMessage());
+                    system.debug('effected fields::'+err.getFields());
+                }
+            }
+        }
+    }
+
+
+    //update
+    public static void updateaccount(){
+
+    }
+
+    //update case status to closed which are in new status 
+    public static void updatecasestatus(){
+        list<case> caselisttoupdate=[select id,status from case where status='New' 
+                                        and createddate<Last_N_Days:10 and isclosed=false];
+        
+        for(case cs:caselisttoupdate){
+            cs.status='Closed';
+        }
+
+        Database.saveresult[] results=database.update(caselisttoupdate,false);
+        for(database.SaveResult result :results){
+            if(result.isSuccess()){
+                system.debug('record is been updated successfully'+result.id);
+            }
+            else{
+                for(Database.Error err:result.getErrors()){
+                    system.debug('error code:'+err.getStatusCode());
+                    system.debug('error message:'+err.getMessage());
+                    system.debug('effected fields::'+err.getFields());
+                }
+            }
+
+        }
+    }
+
+    //Deactivate the user - 
+    public static void deactivateuser(){
+        User usertodeactivate=[select id, username, isactive from user where username='sapintegrationuser' limit 1];
+        if(usertodeactivate!=null){
+            usertodeactivate.isActive=false;
+            update usertodeactivate;
+        }
+    }
+    
+    //upsert 
+    // cases which are in new status update priority is high and create new case record  
+    public static void upsertcase(){
+        
+
+        Case newcase=new case();
+        newcase.Subject='upsert case';
+        newcase.Description='upsert case';
+        newcase.Priority='hight';
+        newcase.Origin='phone';
+        newcase.Reason='Installation';
+        
+        list<case> casetoupdate=[select id,status,priority from case where status='new'];
+        for(case cs:casetoupdate){
+            cs.Priority='high';
+        }
+
+        casetoupdate.add(newcase);
+        Database.UpsertResult[] results=Database.upsert(casetoupdate,false);
+        for(database.UpsertResult result:results){
+            if(result.isSuccess()){
+                if(result.iscreated()){
+                    system.debug('created  record id:'+result.id);
+                }else{
+                    system.debug('record is been updated id:'+result.id);
+                }
+            }
+            else{
+                    for(Database.Error err:result.getErrors()){
+                            system.debug('error code:'+err.getStatusCode());
+                            system.debug('error message:'+err.getMessage());
+                            system.debug('effected fields::'+err.getFields());
+                    }
+                }
+        }
+    }  
 }
