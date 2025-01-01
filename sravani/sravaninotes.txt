@@ -1704,9 +1704,103 @@ merge ac1 ac2;  // ac2 infor will save to ac1 and ac2 will removed fromobject
 
 
 
+SOSL
+salesforce objecname search langauage
+
+FIND 'searchtext' IN ALL FIELDS RETURNING 
+	<OBJECTNAME>(FIELD,FIE....FIELD),
+	<OBJECTNAME>(FIELD,FIELD,.....FILED),
+
+	....................................
+	<OBJECTNAME N>(FIELD.....)
+
+
+
+	EXAMPLE
+	 FIND "test" IN ALL FIELDS RETURNING 
+	 	Account(name,email,industry),
+		Contact(lastname,fiestname,email),
+		position__c(name__c,Description),
+		Lead(latname,firstname,email),
+		candidate__c(lastname,firstanme,email)
+
+
+	20 sosl quries
+	each sosl can process 2000 records as the result 
+	each sosl can search max of 20 objects 
+
+
+	we cannot perform dml ooperations on sosl query result.
+
+
+	static and dynamic 
+
+	STatic 
+	---------
+	should be enclosed in[]
+	serachtext cannot be dynamic 
+	automatically executed 
+
+	return in the form List<List<sobject>> = [];
+
+
+	Dynamic sosl 
+	-------------
+ we can prepare the sosl query dynamically.
+ it means we will add dynamic searchtext in sosl query  at runtime
+
+ String searchquery ='sosl query';
+
+ Search.query(); - also reutrn List<List<sobject>> =Search.query(searchquery);
+
+
+ upon searching in multiple objects, we can search in search group.
+
+ IN ALL FIELDS - it will serach in all the fileds o the object
+ IN NAME FILEDS - IT WILL SERACH IN NAME FILEDS 
+ IN EMAIL FIELDS - it will serach  in fields iwth wmail fileds 
+IN PHONE FILEDS - it will serach in phone keyword fields 
+
+
+query editor 
+apex programs 
+
+object - "Allow search" 
+
+EMAIL PROGRAMMING
+-----------------
+
+in single transaction we can send max 10 email 
+	Messaging.sendemail() 
+
+
+single email
+
+Messaging.singlemailmessage class 
+ by using this class we can sedn the emal notification one ormore receipents dynamically  at runtime. with required informaiotn 
+
+ Messaging.SingleemailMessage emailobject=new Messaging.SingleEmailMessage();
+
+ setToAddress(collection)
+ Setccaddress(collection)
+ setbccaddress(collection)
+ setreplyto(string replytoemailid)
+ setsenddisplayname(string sendername);
+ setsubject(string subjectstring)
+ setplaintextbody(string bodystring)
+ sethtmlbody(string htmlbodystring);
+
+
+Messaging.Sendemail(new Messaging.SingleemailMessage[]{emailobject});
+Messaging.sendemail(List<Messaging.singleemailmessage>);
 
 
 
 
+
+
+
+wap to send emal notification when an update on account 
+wap to send email notification when an delete contact 
 
 
