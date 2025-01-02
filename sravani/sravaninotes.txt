@@ -1803,4 +1803,27 @@ Messaging.sendemail(List<Messaging.singleemailmessage>);
 wap to send emal notification when an update on account 
 wap to send email notification when an delete contact 
 
+wap to send the email notification to all contact peple whose records are not updated with therir account details 
+
+
+Messaging.Massemailmessage 
+ recordids 
+ allow us to send email notification using email templates 
+
+ settargetobjectids(listofids);
+ settemplateid(templateid);
+
+
+list of records =[query]
+List<id> conids=new list<id>();
+for(contact con:listofrecords){
+	system.debug(con.id);
+	conids.add(con.id);
+}
+
+settargetobjectids(conids);
+
+
+
+
 

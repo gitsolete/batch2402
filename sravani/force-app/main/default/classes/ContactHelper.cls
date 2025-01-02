@@ -17,4 +17,27 @@ public with sharing class ContactHelper {
         
     }
 
+    public static void sendemailnotification(){
+        //get all candidates who are not having accoutn details and email field not null
+         //[Select id,lastname,firstname,accountid,email from contact where accountid=null and email!=null limit 10];
+         Map<id,contact> contactmap=new Map<id,contact>([Select id,lastname,firstname,accountid,email 
+                                                        from contact 
+                                                        where accountid=null and email!=null and 
+                                                        email in ('sfdcshares@gmail.com','venkata.of@gmail.com')]);
+        List<ID> conids=new list<id>();
+        if(!contactmap.isEmpty()){
+           conids.addall(contactmap.keySet());
+        }
+
+        If(!conids.isEmpty()){
+            //get email template
+            EmailTemplate template=[select id,name,isactive from EmailTemplate where name='Contact Notification'];
+            if(template.id!=null && template.isactive==true){
+                Messaging.MassEmailMessage massemail=new Messaging.MassEmailMessage();
+                massemail.setTargetObjectIds(conids);
+                massemail.setTemplateId(template.id);
+                Messaging.sendemail(new Messaging.MassEmailMessage[]{massemail});
+            }           
+        }
+    }
 }
