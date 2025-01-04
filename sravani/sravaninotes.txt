@@ -1824,6 +1824,177 @@ for(contact con:listofrecords){
 settargetobjectids(conids);
 
 
+ASYNCHRONOUS PROGRAMMING
+------------------------
+
+Batch apex PROGRAMMING
+schedule apex PROGRAMMING
+future methods
+queueable apex 
+flex queues 
+
+
+BATCH PROGRAMMING
+-----------------
+we can do DMl operations on bulk records at a time 
+it allows to process 50 milliion records 
+batch apex job will executed outside of the salesforce organization by using salesforce resources.
+
+allthe batch classes should be declared as Global accesss specifier 
+
+a+b 
+
+Database.Batchable<sobject> 
+
+a+b
+
+your batch class should be implement this Database.Batchable<sobject> interface 
+
+implement - inheritance concept , we are inheriting the methods from batchable class.
+
+Global class <classname> implements Database.batchable<sobject>{
+
+	//business logic 
+	//give the defination of batchable interface  methods
+
+}
+
+Batchable interface methods  :: start, execute, finish
+---------------------------
+Global Database.Querylocator start(Database.batchablecontext bcontext):
+
+  start - is interface methods, it will execute only ont time at the starting of the batch class execution.
+  this method is used to execute the soql query, to get the records .
+
+	in order to get 50 millin records we need execute soql query using Database.getquerylocator();
+
+String query='select id, name from account';
+Database.getquerylocator(query);
+
+this getquerylocator executes your query and store the reault in buffer memeory and return the address location to 
+database.Querylocator.
+
+Database.Querylocator class will get the all the reocrds divide the records into batches.
+
+each batch canhave mac 1-2000 abd default size is 200
+
+start() method will get each batch records from thebuffer memory and  pass the reocrds to  execute() method for processing
+
+
+EXECUTE()
+Global void Execute(Database.batchablecontext bcontext, list<sobject> recordstoprocess)
+
+this method recieves the data from start method and perform your required business logic.
+we can implment dml operations  on the records 
+once the batch of trecords has been processed, then it will indicates to start() methods to provide the next batch records 
+
+this process will be continued till all the batches will get executes.
+
+each batch recorsds, will be trated as a discrete trtansaction. so that failue of one batch will not affect of other 
+batch records.
+
+
+Global Void Finish(Database.batchablecontext bcontext)
+	consolding report , email, logging 
+	it will execute only once 
+
+	once all batches has been executed the finish method will get exeuctes to perform post-execution logic,like 
+	sending email notifcations... 
+
+
+note: all the batch job details, will get tracked by using Asyncapexjob 
+
+we have query to Asyncapexjob object to get ehte deatils of required job using job id.
+
+Asyncapexjob jobdettails=[select id, status, totaljobiems, process, createdby.email from  Asyncapexjob
+							where id=<batch job id>];
+
+
+u can execute the batch in all the below places
+Triggers
+schedule
+anonymoous window
+another batch job 
+vf pages 
+
+id batchjobid=DAtabase.executebatch(<batchclassobjecname>);  // default 200
+
+id batchjobid=DAtabase.executebatch(<batchclassobjecname>,integer size(1-2000));
+
+
+how to execute batch job from anonymoous windows.
+updateaccountsbatch obj=new updateaccountsbatch();
+Database.executebatch(obj,2);
+
+
+
+dear customer,
+
+here is the batch job status notification :: jobname
+job id :: jobid 
+job status ::
+job no.of batches :: 
+no.of batches processed :: 
+no.of error ::
+
+we can write custom functions in batch class . but not good practise.
+
+Database.stateful
+
+100
+account - amount 
+50 batch1
+execute {totalamount = toatal+acc.amount}
+
+
+batch2 50 
+execute {totalamount = toatal+acc.amount}
+
+
+totalamount
+
+global with sharing class calculateTotalRevenueBatch implements database.Batchable<sobject>,Database.stateful {
+
+	start
+	execute
+	finish
+}
+
+ Number of SOQL queries: 0 out of 100
+  Number of query rows: 0 out of 50000
+  Number of SOSL queries: 0 out of 20
+  Number of DML statements: 0 out of 150
+  Number of Publish Immediate DML: 0 out of 150
+  Number of DML rows: 0 out of 10000
+  Maximum CPU time: 0 out of 10000
+  Maximum heap size: 0 out of 6000000
+  Number of callouts: 0 out of 100
+  Number of Email Invocations: 0 out of 10
+  Number of future calls: 0 out of 50
+  Number of queueable jobs added to the queue: 0 out of 50
+  Number of Mobile Apex push calls: 0 out of 10
+
+Governor limits of batch class
+-------------------------------
+up to five active batch jobs can be allowed for apex.
+
+maximumm can deal 50 milliion records , database.Querylocator, database.getquerylocator
+
+every batch job size maximum 2000
+
+if no size menthied default size is 200
+
+apex Governor limits are reset for each execution of execute method
+
+the start, execute and finish methods can implement upto 10 callouts each 
+
+maximum no.of batch executions is 250000 per 24 hours 
+
+
+
+
+
+
 
 
 
