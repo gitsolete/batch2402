@@ -2,14 +2,13 @@ public with sharing class customerHelper {
     private integer custid;
     private string custname,address,phone;
     private decimal amount;
-    public integer i;
+
     public customerHelper() {
         custid=34;
         custname='ramkrishna';
         address='hyd';
         phone='234234';
         amount=50000;
-        i=0;
     }
 
     public void showvalues(){        

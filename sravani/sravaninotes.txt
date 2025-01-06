@@ -1992,6 +1992,86 @@ maximum no.of batch executions is 250000 per 24 hours
 
 
 
+SCHEDULE APEX PROGRAMMING
+-------------------------
+
+
+System.schedulable 
+
+Execute- this method has to define in your schedulable class 
+
+
+Global class annualrevenue implements system.schedulable
+{
+  //business
+
+  global void execute(database.schedulablecontext scontext){
+	//business logic 
+		//can run batch program 
+		updateaccountsbatch obj=new updateaccountsbatch();
+		database.executebatch(obj,50);
+  }
+
+}
+
+
+schedule a job 
+--------------
+
+
+FUTURE methods
+---------------
+
+there are two types objects 
+
+setup objects 
+	setup object is one that must be edited from the setup or builder area of the plastform
+	these objects help us to interact metadata for declarative development 
+
+example, user, userrole, userterritory, territoryoupmember, recordype,profile, queueobjece, custommetdata,...
+
+non-setup objects 
+	standard object 
+	custom object 
+	account, contact, position__c, hiringmanager__c....
+
+
+Use case 
+--------
+try to perform dml operatioin on both setup and non-setup object in signle transaction.
+
+MIXED DML OPERATION  exception
+
+@FUTURE  annotation , to execute your logic ASYNCHRONOUSly
+
+webservice callouts 
+
+future methods run background 
+
+u can define the future method which takes long time 
+
+each future method queued and then executes
+
+Rules 
+---------
+method should be static 
+return type should be void 
+future method parameters must be primitive datatypes, like arrays, string , collectioins [primitive dtypes]
+
+we cannot pass sobject types 
+
+we cannot calll one future method from another future method 
+
+maximum no.of future methods  can call 250000 in 24 hours 
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,41 @@
+•	batch apex scenario-based Basic Questions
+•	What is Batch Apex in Salesforce?
+•	Why would you use Batch Apex instead of a regular Apex class?
+•	How do you implement a Batch Apex class?
+•	Explain Start method in Batch Apex.
+•	Explain the execute method in Batch Apex.
+•	Explain the finish method in Batch Apex.
+•	What is the default batch size in Batch Apex?
+•	How do you execute a Batch Apex job?
+•	Can Batch Apex be used to delete records?
+•	What Is The Purpose Of The Database.QueryLocator In Batch Apex?
+•	How do you execute a Batch Apex job?
+•	batch apex scenario-based Intermediate Questions
+•	How does Batch Apex handle governor limits?
+•	What are some best practices for writing efficient Batch Apex?
+•	How do you test a Batch Apex class?
+•	How do you handle errors in Batch Apex?
+•	Can you chain Batch Apex jobs? How?
+•	What is the maximum number of batch jobs that can be queued or active simultaneously?
+•	What is the Apex flex queue?
+•	How can you monitor the progress of a Batch Apex job?
+•	What is the difference between Database.QueryLocator and Iterable in the start method?
+•	How do you handle large data volumes in Batch Apex?
+•	How do you track the status of the batch class
+•	Is it possible to reorder the batch class?
+•	batch apex scenario-based Advanced Questions
+•	Explain a scenario where you would use Batch Apex over other asynchronous processes like Queueable or Future methods.
+•	How do you handle transactions in Batch Apex?
+•	Can Batch Apex be scheduled? How?
+•	How do you manage batch sizes dynamically?
+•	What are some common pitfalls to avoid when using Batch Apex?
+•	Explain the role of Database.Stateful in Batch Apex.
+•	How do you ensure data consistency in Batch Apex?
+•	Describe a real-world scenario where you used Batch Apex.
+•	How do you optimize the performance of a Batch Apex job?
+•	What are the limits for the number of records processed in Batch Apex?
+•	Can you use Batch Apex for callouts to external systems? How?
+•	What are some considerations when using Batch Apex in a multi-tenant environment?
+•	How do you handle long-running Batch Apex jobs?
+•	What is the impact of running multiple Batch Apex jobs concurrently?
+•	How can you improve the reliability of Batch Apex jobs?

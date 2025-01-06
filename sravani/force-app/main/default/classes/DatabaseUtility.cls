@@ -1,19 +1,19 @@
 public with sharing class DatabaseUtility {
     public DatabaseUtility() {
-
+        
     }
-
-
+    
+    
     public static void getallleads(){
         List<Lead>  leadlist=[select id,lastname,firstname,phone,email,company from lead];
         system.debug(leadlist);
-
+        
         for(Lead leadobj:leadlist){            
             system.debug(leadobj.id +'--'+leadobj.lastname+'--'+leadobj.firstname+'--'+leadobj.phone);
         }
     }
-
-
+    
+    
     //wap to fetch all the position records and store in the map 
     public static void getallpositions(){
         List<Position__c>  poslist=[select id,name,name__C from Position__c];
@@ -24,13 +24,13 @@ public with sharing class DatabaseUtility {
             posmap.put(psrec.id,psrec);
         }
         system.debug(posmap);
-
+        
         for(Id psid:posmap.keyset()){
-                system.debug('position id::'+psid+'--'+posmap.get(psid));
+            system.debug('position id::'+psid+'--'+posmap.get(psid));
         }
     }
-
-
+    
+    
     //wap to gecth the 5 reocrds from cotnact and sotre in map<conid,contactrecord>
     public static void getlimitcontacts(){
         List<contact> conlist=[select id,name from contact limit 5];
@@ -40,36 +40,36 @@ public with sharing class DatabaseUtility {
             conmap.put(con.id,con);
         }
         system.debug(conmap);
-
+        
         for(Id cid:conmap.keyset()){
             system.debug('conetence id ::'+cid+'--'+conmap.get(cid));
         }
     }
-
+    
     //example for allrows clause
     public static void getallaccounts(){
         List<account> acclist=[select id,name from account ALL ROWS];
         system.debug(acclist.size());
-
+        
         List<account> acclist2=[select id,name from account];
         system.debug('without all rows clause::'+acclist2.size());
     }
-
+    
     //example fro offset
-
+    
     public static void getrecordbylimit(integer lim,integer off){
         List<account> acclist=[select id,name from account limit:lim offset:off];
         system.debug(acclist.size());
     }
-
-
+    
+    
     //wap to find all the accounts for which at least a contact is present
     public static void accountwithcase(){
         List<Account> acclist=[select id,name from Account where id 
-        IN(select accountId from Contact)];
+                               IN(select accountId from Contact)];
         system.debug(acclist);
     }
-
+    
     //wap to get positions based on specified location
     public static void getpositionsfromlocation(string location){
         List<Position__c> poslist=[select id,name,name__c from Position__c where   Location__c=:location];
@@ -81,7 +81,7 @@ public with sharing class DatabaseUtility {
             }
         }
     }
-
+    
     //wap to get the account reocrds based on specified name ends with kumar
     public static void getaccountbychar(string inputstr){
         if(inputstr!=null && inputstr!=''){
@@ -94,41 +94,41 @@ public with sharing class DatabaseUtility {
                 system.debug(acclist);
             }
         }
-
+        
     }
-
+    
     //wap to get contacts which are associated with banking industry accounts 
     public static void getcontactsbyindustry(String indname){
         if(indname!=null && indname!=''){
-           Map<id,Account> accountmap=new Map<id,account>(
-            [select id,name,industry from account where industry=:indname]);
-          system.debug(accountmap);
-          
+            Map<id,Account> accountmap=new Map<id,account>(
+                [select id,name,industry from account where industry=:indname]);
+            system.debug(accountmap);
+            
             //map.keyset()
             if(!accountmap.keyset().isempty()){
                 List<Contact> conlist= [select id,lastname,email,accountId from contact where accountid IN : accountmap.keyset()];
-
+                
                 if(!conlist.isempty()){
-                     system.debug(conlist);
-                     for(contact con:conlist){
-                         system.debug('contact name::'+con.LastName+'  '+'contact email::'+con.Email);                    
-                     }
-                 }       
-     
+                    system.debug(conlist);
+                    for(contact con:conlist){
+                        system.debug('contact name::'+con.LastName+'  '+'contact email::'+con.Email);                    
+                    }
+                }       
+                
             }
         }
     }
-
-
+    
+    
     //wap to candidate records specified locaiton
     public static void getcandidatebylocation(string candidatelocation){
         if(candidatelocation!=null && candidatelocation!=''){
-
+            
             String candidatequery='SELECT ID,lastname__c,phone__c,email__c from candidate__c ';
             candidatequery+='where Location__c=:candidatelocation';
-
+            
             system.debug(candidatequery);
-
+            
             List<Candidate__c> candidatelist=Database.query(candidatequery);
             system.debug('candidatelist size:::'+candidatelist.size());
             if(!candidatelist.isempty()){
@@ -138,9 +138,9 @@ public with sharing class DatabaseUtility {
                     system.debug('candidate email::'+can.email__C);
                     system.debug('================================================================================');
                 }}
-            }
         }
-
+    }
+    
     
     //wap to get lead records base on input value
     // if i supply normal string get the lead record based on lastname match
@@ -151,14 +151,14 @@ public with sharing class DatabaseUtility {
             if(pattern.matches('[a-zA-Z0-9+_-]+@[a-zA-Z]+.[a-zA-Z]{2,4}',inputstring)){
                 //1. if input string is lastname
                 leadquery+='email=:inputstring';
-
+                
             }else{
                 leadquery+='lastname=:inputstring';
             }
             system.debug(leadquery);
-
+            
             list<Lead> leadlist=database.query(leadquery);
-
+            
             if(!leadlist.isempty()){
                 system.debug(leadlist);
                 for(lead l:leadlist){
@@ -186,8 +186,8 @@ public with sharing class DatabaseUtility {
     //
     public static void getaccountindustrywithcount(){
         
-       AggregateResult[] results=[select industry, count(id) recordscount from account group by industry];
-       
+        AggregateResult[] results=[select industry, count(id) recordscount from account group by industry];
+        
         for(AggregateResult result:results){
             system.debug('Industry NAme:'+result.get('industry')+'--Count::'+result.get('recordscount'));
         }
@@ -203,7 +203,7 @@ public with sharing class DatabaseUtility {
                                    group by industry 
                                    having count(id)>2
                                   ];
-       
+        
         for(AggregateResult result:results){
             system.debug('Industry NAme:'+result.get('industry')+'--Count::'+result.get('recordscount'));
         }
@@ -213,11 +213,107 @@ public with sharing class DatabaseUtility {
     //
     public static void getduplicateaccount(){
         Aggregateresult[] results=[select name , count(id) recordscount from account
-                                  group by name
-                                  having count(id)>1];
+                                   group by name
+                                   having count(id)>1];
         system.debug('duplicate count size...'+results.size());
         for(Aggregateresult result:results){
             system.debug('account name:::'+result.get('name')+'----count::'+result.get('recordscount'));
         }
     }
+    
+    //wap to get account records based on specified name and fetch all the associated contacts, oppor, cases 
+    public static void getparentandchildrecords(string accountname){
+        if(accountname!=null && accountname!=''){
+            List<Account>  accountlist=  [select id, name,phone,
+                                          (select id,lastname from contacts),
+                                          (select id,name,amount from opportunities),
+                                          (select id,casenumber from cases)
+                                          from account 
+                                          where name=:accountname];
+            if(!accountlist.isempty()){
+                for(Account acc : accountlist){
+                    system.debug('---------------------Account------------------------------');
+                    system.debug(acc);
+                    system.debug('=======================contacts============================');
+                    //get related contacts
+                    for(contact con:acc.contacts){
+                        system.debug(con);
+                    }
+                    system.debug('====================opps==============================');
+                    for(Opportunity opp:acc.opportunities){
+                        system.debug(opp);  //opp.name
+                    }
+                    system.debug('====================cases=============================='); 
+                    for(case cs:acc.cases){
+                        system.debug(cs);
+                    }                   
+                }
+            }
+        }
+    }
+    
+    
+    //wap case record and associated contact details and releated account and owner detials 
+    //along with owners profile infomration
+    
+    public static void getcaseandrelatedparentdetails(string csnumber){
+        if(csnumber!=null && csnumber!=''){
+            List<Case> caselist=[select id,casenumber,subject,priority,status,
+                                 Contact.lastname,contact.email,
+                                 contact.Account.name,contact.Account.industry,
+                                 contact.Account.Owner.Email,
+                                 contact.Account.owner.profile.name
+                                from case 
+                                where casenumber=:csnumber];
+            system.debug(caselist);
+            if(!caselist.isempty()){
+                for(case cs:caselist){
+                    system.debug(cs);
+                    system.debug(cs.contact.email);
+                    system.debug(cs.contact.account.name);
+                    system.debug(cs.contact.account.owner.email);
+                    system.debug(cs.contact.account.owner.profile.name);
+                    //cs.casenumsber,cs.contact.lastname,cs.contact.account.name,
+                }
+            }
+        }
+    }
+    
+    
+    //wap tog et hiring manager and associated position records 
+    //
+    public static  void gethmgrwithpositions(){
+        List<hiringmanager__C> hmgrlist=[Select id,name__c,phone__c,
+                                         (select id,name__c,location__C from positions__r)
+                                        from hiringmanager__C];
+        system.debug(hmgrlist);
+        
+        for(hiringmanager__C hmgr:hmgrlist){
+            system.debug(hmgr);
+            system.debug(hmgr.positions__r.size());
+            for(position__C ps:hmgr.positions__r){
+                system.debug(ps);
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

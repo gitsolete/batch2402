@@ -47,10 +47,4 @@ public with sharing class CandidateHandler {
             }
         }
     }
-
-    
 }
-
-/*List<Candidate__c> canlist=[select id,email__c,lastname__c,name,phone__c,location__c from Candidate__c where email__c in ('sfdcshares@gmail.com','venkata.of@gmail.com')];
-CandidateHandler.sendemailtocandidates(canlist);
-*/
