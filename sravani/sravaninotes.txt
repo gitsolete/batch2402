@@ -2066,12 +2066,380 @@ maximum no.of future methods  can call 250000 in 24 hours
 
 
 
+FLEX QUEUES IN salesforce
+--------------------------
+
+5 batch jobs we can run simultaniously
+
+holding 
+queued
+
+spring 15 ..
+
+100 additional batch jobs for execution 
+
+
+
+Queeable apex 
+-------------
+
+winter 15, queueable interface
+
+this interface hellp u to add jobs to the queue and monitor them. which is enhanced way of running ASYNCHRONOUS apex code compared
+to future method 
+
+we will get higher Governor limits than sysnchrounous apex... heap size 
+
+apex job heap size - 6mb 
+Asyncapexjob - 12mb 
+no.of soql - 200
+
+public class <claaname> implements queueable {
+
+	publlic void execute(system.queueablecontext qc){
+		//dml 
+	}
+
+}
+
+
+Id  jobid = system.enqueueable(new classname());
+
+
+future vs queueable 
+-------------------
+
+both jobs will run when resources avalable
+both job can be queued
+
+-->one future mehtod  in a class , where as we can make entire class as queueable 
+-->future method does not return id, where as queueable return the jobid 
+-->future method does not allows sobjects types , queueable can contain primitive and non-primitive
+-->chaining jobs 
+	--u can chain one job to another job by staring one from another 
+
+
+Queueable apex limits 
+----------------------
+	u can add upt to 50 jobs to the queue with system.enqueuejob in a signle transaction
+	no limit in chaining jobs 
+	u cannot call multiple chiilds from one parent queueable job 
+
+
+queueable job1
+	job2
+		job3 
+			job4
+				job5
+
+
+
+APEX Triggers
+-------------
+Trigger are custom logic will get fire automatically upon perform the DML operation on an object 
+
+
+validation rules 
+
+trigger can fire before and after performaing the dml oepration
+
+events 
+Before Insert, after insert
+before update,after update
+before Delete,after delete
+after undelete 
+
+Triggers runs ASYNCHRONOUS 
+
+each trigger associated with an object 
+
+
+
+Trigger <triggername> on <object name>(events list){
+	
+	// logic 
+
+}
+
+
+Trigger Leadtrigger on Lead (Before insert){
+
+	//lgoic
+}
+
+
+Trigger hiringmanagertrigger on hiringmanager__c(before insert,after delete){
+	
+	//logic belongs to before insert operation 
+
+	// logic belongs to after delte operation 
+
+}
+
+
+Trigger opptytrigger on opportunity(Before insert, after insert, before update, after udpate, before delete, 
+after delete, after undelete){
+
+	//logic 
+
+}
+
+oppty record 
+	discount > 7% and owner is pavan 
+
+	automatically send it for approval 
+
+
+
+Trigger context variables 
+--------------------------
+
+Boolean Trigger.isinsert 
+boolean Trigger.isupdate
+boolean trigger.isdeleted
+boolean  Trigger.isundelete
+boolean Trigger.isbefore
+boolean Trigger.isafter 
+
+Trigger accounttrigger on Account(Before insert, after insert, before delete, after undelete){
+
+	if(Trigger.isinsert && Trigger.isbefore){
+
+		//before insert logic
+	}
+
+	if(Trigger.isdelete && Trigger.isbefore){
+		//before delete logic 
+
+	}
+
+	if(Trigger.isundelete && trigger.is after){
+
+		//after undelete lgoic 
+	}
+
+}
+
+
+each trigger associated with one object , but an object can  have multiple triggers 
 
 
 
 
 
+Trigger accounttrigger1 on Account(Before insert, after insert, before delete, after undelete){
 
+	if(Trigger.isinsert && Trigger.isbefore){
+
+		//before insert logic
+	}
+
+	if(Trigger.isdelete && Trigger.isbefore){
+		//before delete logic 
+
+	}
+
+	if(Trigger.isundelete && trigger.is after){
+
+		//after undelete lgoic 
+	}
+
+}
+
+best practise
+	write one trigger for one object 
+	use context variables to avoid repeat execution of your logic 
+	code less triggers , write the business logic in classes not in triggers 
+
+
+Trigger.New - 
+list collection which contains the current context records. it will hold the newly inserting records 
+List<sobject> Trigger.new 
+		This is available in both Insert and update operations 
+		this is not available for Delete operations 
+
+
+Trigger.Old
+	list collection, it holds previous context records, with old values .
+
+		list<sobject Trigger.old 
+
+			this is available in delte and update operations 
+			this is not available in insert operaiton
+Trigger.oldmap
+	map collection which holds the old/previous context records.
+	key	- id 
+	value  - record 
+	is available in update and delete operations 
+
+Trigger.newmap 
+	key 	- id 
+	value  - record 
+   this collection is available in after insert and update operationis 
+   this is not available in before insert 
+
+
+
+Trigger accounttrigger on Trigger (before insert){
+
+	///rating = hot 
+
+	if(Trigger.isinsert && Trigger.isbefore){
+		//which record have to  rating to hot 
+		for(Account acc:Trigger.new){
+			acc.rating='hot'
+		}
+	}
+}	
+
+1. When ever new Account is inserted with Industry as 'Banking ' then set the phone as '888'
+2. 2. When ever new lead is created , calculate the leadscore using before
+inserting
+Field Name NOT NULL NULL
+Email 10 0
+Phone 10 0
+Industry 20 0
+Note : First Create a custom field LeadScore on Lead object
+3. Create a Queue on Lead object as Banking Queue with users ( satish) :
+Create a Queue on Lead object as Energy Queue with Users
+Scenario: When a new Lead is inserted based on the industry field value
+assign it
+corresponding queue
+IndustryBankingassing
+owner of the record as Banking queue
+IndustryEnergyAssign
+owner of the record as Energy Queue
+Industry other than Banking and Energy user who ever has
+created the
+record he should be the owner
+4.When ever new Account is created with AnnualReneue more than 50
+Lacs and Industry
+as Energy then create a new opportunity for this account with
+OpportunityName as AccountName
+StageName as Prospecting
+CloseDate as Today+30 days
+5. When ever new opportuntiy is created with StageName as 'closed Won '
+then
+add karthic as OpportunityTeamMember
+OpportunityTeamMember :
+OpportunityId :
+UserId :
+OpportunityAccessLevel :
+TeamMemberRole
+6.When ever new Account record is created with Account Type as
+'prospect ' then
+create a new contact for this account with following data
+Contact lastname as Account Name
+COntact Phone as Account Phone
+7. When ever a new Opportunity is created with stageName 'closed won'
+share the record
+with user karthic
+8. when ever new Case is created with Priority as 'High' and origin as
+'Email'
+then share the record with karthic with edit permission
+9. When ever the phone no of the account is modified then set
+corresponding contacts
+homephone as new Phone no of Acctount
+otherPhone as Old Phone no of Account
+10. Create a Following Custom Fields on Account Object :
+Field Name DataType
+Total_
+Amount Currency
+PipeLine_Amount Currency
+Won_Amount Currency
+Lost_Amount Currency
+Scenario 1: When a new Opportunity record is created for an account
+rollup the opportunity amount to Corresponding Account
+1. If new Opportunity Stage is Close Won then add the amount to
+Account 's
+Total_Amount=Total_Amount+Opportunity Amount
+Won_Amount=Won_Amoutn+Opportuntiy amount
+2. If new Opportunity stage is closed Lost then add the amount to
+Accounts
+Total_Amount=Total_Amount+Opportunity Amount
+Lost_Amount=Lost_Amoutn+Opportuntiy amount
+3. If new Opportunity stage is not closed Lost or closed won then add
+the amount to Accounts
+Total_Amount=Total_Amount+Opportunity Amount
+PipeLine_Amount=PipeLine_Amount+Opportuntiy amount
+Scenario 2: When a existing opportunity stage is modified to closed won or
+closed lost
+then
+1. If stageName is modified to Closed won
+Remove the amount from PipleLine_Amount and add it to
+WOn_Amount
+2. If StageName is modified to Closed Lost
+Remove the amount from PipleLine_Amount and add it
+Lost_Amount
+
+
+create a trigger on account object to assign the annualrevenue value as below 
+industry name 				annualrevenue
+-------------------------------------------
+Banking						8000000000
+finance						7000000000
+insurance					6000000000
+healthcare					5000000000
+else						40000000
+
+new account record / update 
+
+
+object : Account 
+type :  before insert, before update
+
+after insert --> fetch record , chek industry type then set value , update 
+
+
+
+-->
+Create a trigger to make user each contact shouldbe getssociated with an account 
+u can make account field (lookup relationship field)  this as mandatory 
+u can write validation rule
+u can create a flow / trigger 
+
+Object : Contact 
+Type : before update, before insert
+Collection : Trigger.New 
+
+
+-->
+orphan contacts assign to some account 
+
+
+-->
+careate a triigger to preventhe deletion of an active account record 
+
+validation
+flow
+trigger 
+
+object :account
+event : Delete 
+type :  before 
+Collection : Trigger.old 
+
+
+
+-->
+write a trigger to prevent the dupicate candidate records on candidate__c object 
+
+object : candidate__c
+event : update, insert 
+type : before
+collection : Trigger.new 
+
+
+--> wat to prevent the deletion of the associated contacts upon removing the account record 
+
+object :account 
+event : delete 
+type : before 
+collection : Trigger.old 
+action :
+  accountid
+   remove account information from the associated contacts 
+   select
 
 
 
