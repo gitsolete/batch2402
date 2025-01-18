@@ -40,4 +40,21 @@ public with sharing class ContactHelper {
             }           
         }
     }
+    
+    public static void setphonefax(List<Account> acclist){
+        
+        List<Contact> contactlisttoupdate=new list<Contact>();
+        For(Account acc:acclist){
+            if(!acc.contacts.isempty()){
+                for(Contact con:acc.contacts){
+                    con.phone=acc.phone;
+                    con.fax=acc.fax;
+                    contactlisttoupdate.add(con);
+                }
+            }
+        }
+        if(!contactlisttoupdate.isempty()){
+            update contactlisttoupdate;
+        }
+    }
 }

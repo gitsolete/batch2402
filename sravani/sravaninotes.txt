@@ -2443,6 +2443,72 @@ action :
 
 
 
+-->
+wat to synchoronize the contact record's phone and fax values with the associated account records phone and fax values 
+
+object - Account 
+event - update
+type - After
+collection - Trigger.New, trigger.newmap
+action - 
+	set the accounts phone and fax values to associated contacts 
+
+   1. account records , new, newmap 
+   2. fetch contact records 
+   3. set values 
+   4. update contacts 
+
+-->
+BULK LEAD CONVERSION
+--------------------
+upon lead convertion, we have to click convert button which presents onlead record 
+bulk lead convertion no such process
+
+appexchange - products 
+write own apex code 
+
+
+Class - Database.leadconvert 
+
+this class is used to hold the lead record, which needs to get converted. we have to create object to this class 
+
+
+Database.leadconvert lconvert=new Datbase.leadconvert();
+
+list<datbase.leadconvert> listldconvert=new list<database.leadconvert>();
+
+
+Methods:
+--------
+setleadid(leadrecordid): this method is use to specify the lead record id which needs to get converted.
+lconvert.setleadid(asdf08908asdf);
+
+setsendnotificationemail(boolean): notification to lead owner
+True - send email
+flase - no notification 
+
+
+setdonotcreateopportunity(boolean):
+ True - do not create
+ false - crate opty 
+
+ lconvert.setdonotcreateopportunity(flase);
+
+ setconvertedstatus(status):
+ this method is used to assign thestatus for the lead record upon convertion
+ we have to collect the leadstatus value from leadstatus object 
+
+ leadstatus statusrec=[select id,masterlable,isconverted from leadstatus where isconverted=true limit 1];
+ if(status!=null)
+	lconvert.setconvertedstatus(statusrec.masterlable);
+
+
+Database.convertlead(list<datbase.leadconvet>)
+database.leadconvertresult[] results=database.convertlead(list of leads to convert);
 
 
 
+triggers
+object : LEad
+event : update/insert
+type : after 

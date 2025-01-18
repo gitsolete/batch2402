@@ -1,4 +1,4 @@
-trigger AccountTrigger on Account (before insert,before update,before Delete) {
+trigger AccountTrigger on Account (before insert,before update,before Delete,after update) {
     
     if((Trigger.isinsert || Trigger.isUpdate) && Trigger.isbefore){
         
@@ -41,5 +41,15 @@ trigger AccountTrigger on Account (before insert,before update,before Delete) {
             con.accountid=null;
         }
         update conlist;
+    }
+    
+    
+    if(Trigger.isAfter){
+        if(Trigger.isUpdate){
+            //using account fetch associated contacts 
+          List<Account> accountlist=[select id,name,phone,fax,(Select id,phone,fax from contacts) from Account
+                                    where id in:Trigger.newmap.keyset()];
+            ContactHelper.setphonefax(accountlist);
+        }
     }
 }
