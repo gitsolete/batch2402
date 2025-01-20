@@ -2512,3 +2512,138 @@ triggers
 object : LEad
 event : update/insert
 type : after 
+
+
+-->
+Write a trigger on the Contact object to prevent 
+inserting a new contact with the same First Name and Email for the same Account.
+Trigger ContactTrigger on contact(Before Insert){
+
+    set<ID> accountidset=new Set<id>();
+    for(Contact con:Trigger.New){
+        accountidset.add(con.accountid);
+    }
+    List<Contact> contactexistedlist=[Select id,firstname,email,accountid from Contact where accountid in accountidset];
+
+    for(Contact con:Trigger.NEw){
+        if(contactexistedlist.contains(con.firstname) && contactexistedlist.contains(con.email)){
+            //send email
+            con.firstname.adderror('with this name already existed');
+        }
+    }
+    
+}
+
+--> 
+Write a batch to update all Contact records with a custom field "Preferred Contact Method" set to 
+"Email" if they have opted for email communication (Email_Opt_In__c = true)
+Gobal class updatecontactBatch implements Database.batchable{
+
+    global Database.querylocator start(Database.batchablecontext bc){
+        STring contactquery='select id,email,preferred_contact_method__c,Email_Opt_In__c from contact';
+        return database.getquerylocator(contactquery);
+    }
+
+    global void execute(database.batchablecontext bc, list<contact> contactstoupdate){
+        for(contact con:contactstoudpate){
+            if(Email_Opt_In__c){
+                con.preferred_contact_method__c='Email';
+            }
+        }
+        update contactstoudpate;
+
+        or // database.saveresults[] resuts= database.udpate(contactstoupdate,false);
+    }
+
+    global void finish(database.batchablecontext bc){
+        // post bacth action
+    }
+
+
+
+}
+
+-->
+Query Contacts that have Opportunities with a closed date in the last 30 days 
+and whose Account is located in a specific country (e.g., "United States").
+
+
+account - > contact -> oppty 
+
+select  id,accountid.country, (select id,closeddate from opportunity where closeddate in last_n_Days 30)  from contact where accountid.country='US'
+
+
+-->
+Write a SOQL query that returns all the account IDs where there are no related contacts.
+
+select id from account where id not in  (select id, accountid from contact) 
+
+
+CUSTOM SETTINGS IN APEX
+-----------------------
+stores in application cache 
+		no limits 
+
+
+List custom setting 
+	organization wide static data store 
+	this cannot access in fromula fields 
+hierarchy custom setting 
+	we cn store profile/user specific data
+	we can access in formulla fileds 
+$setup.<cstomsettingname>.fieldname 
+
+
+without writing query we can get custom settings 
+10mb
+
+we can create upto 300 fields 
+
+
+getall()
+getinstance(customsettingrecordname)
+getvalues(customsettingkeyname)
+
+
+Recursive Triggers 
+-------------------
+
+
+
+best practise in writing triggers 
+----------------------------------
+1. trigger should handle bulk , use for lop to process records 
+2. always check nulll pointer exception
+3.  excepton handling , try catch blocks
+4. use context variables to separate trigger logic 
+5. do not use dml in for loop
+6. do soql sosl inside loops 
+7. proper test classes 
+8. code less triggers 
+9. avoid recursive triggers by adding proper conditions 
+10. Maintain only one trigger for each object 
+
+
+
+sequence of execution /Order of executioin 
+------------------------------------------
+1. Load 
+2. System validations 
+3. Before triggers 
+4. custom validations 
+5. duplicate rulles
+6. save / no commit to db 
+7. AFter triggers
+8. Assignment rules
+9. Autoresponse rules
+10. workflows
+11. updaterecord 
+12. procss buliders ,flows 
+13. escalation rules
+14. entitlement rules 
+15. parent roll-up summaries 
+16. grand parent rollup summaries
+17 criteria based sharing rules
+18. datbase commit 
+19. post commit logics 
+

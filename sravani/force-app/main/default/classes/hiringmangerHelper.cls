@@ -1,5 +1,6 @@
 public class hiringmangerHelper {
     
+    public static boolean flag=true;
     
     public void createhiringmanger(){
         hiringmanager__c hmgrobj=new hiringmanager__c();
@@ -46,6 +47,19 @@ public class hiringmangerHelper {
                 insert hmgrobj;
             }
         }
+    }
+    
+    public static void afterinsert(){
+       
+            hiringmanager__c hmgrobj=new hiringmanager__c();
+            hmgrobj.name__c='recursivetriggerexmple';
+            hmgrobj.email__c='recursivetriggerexmple@toyota.com';
+            hmgrobj.Location__c='hyd';
+            hmgrobj.Phone__c='234234';
+            insert hmgrobj;
+           
+       
+        
     }
     
 }
