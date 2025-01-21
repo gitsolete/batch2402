@@ -2647,3 +2647,95 @@ sequence of execution /Order of executioin
 18. datbase commit 
 19. post commit logics 
 
+
+Exception handling 
+------------------
+
+apex code 
+errors
+	complie time errors 
+		syntax errors 
+		due to lack of system resources
+	run time errors 
+		upon executin your apex code we will get this errors. Exceptions 
+
+because of this exceptions program will terminate abnormally. 
+	debug logs 
+	error objects 
+	email notification
+
+
+System defined exceptions 
+	listexception
+	limitexception
+	dmlexception
+	arrayindexoutofboundexeption
+	math exception 
+	queryexception
+	calloutexceptpion
+	filenotfoundexception
+	nullpointerexception..............etc 
+
+account acc=new accoun();
+insert acc	; //dml exception
+
+account acc=[select * from account]; // query exception 
+
+string s;
+system.debug(s.cointains('asdf')); // nullpointer exception
+
+
+234234/0  - mathexceptions 
+
+list<string> lcities=new list<string>{'ap','tn'};
+
+lcities[2]; // 
+
+
+try block -  business logic 
+
+catch block - 
+
+finally block - cleanup all memory.
+try - finally 
+catch- finally .
+finally block always executes 
+
+Exception class - 
+
+try {
+
+		business logic 
+}
+catch(list exception calss type ){
+
+}
+catch(dml exception calss type ){
+
+}
+catch(query exception calss type ){
+
+}
+finally{
+}
+Try block must have at least one catch block or a finally block
+
+custom exceptions 
+-----------------
+public claaname extends exception{
+	//you will use custom exeption
+
+}
+
+
+public myexception extends exceptioin{
+	//logic 
+}
+
+custom exceptions are used to display the custom error messages 
+
+
+
+
+
+
