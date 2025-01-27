@@ -2604,6 +2604,12 @@ getall()
 getinstance(customsettingrecordname)
 getvalues(customsettingkeyname)
 
+Map<string,ROR__mdt> mapregions=ROR__mdt.getall();
+system.debug(mapregions.size());
+system.debug(ROR__mdt.getall().values());
+
+
+
 
 Recursive Triggers 
 -------------------
@@ -2736,6 +2742,93 @@ custom exceptions are used to display the custom error messages
 
 
 
+TEST CLASSES FOR UNIT TESTING
+-----------------------------
+dev   (unit testing)
+a+b 
+test class (unit testing)
+  inputs 
+  a+b
+  result 
+  manual comparison 
 
+testing   (uat, performac....)
+a+b 
+TEST class  (optional)
+
+
+
+produtioin (live)
+a+b 
+test class 
+
+
+your test class coverage >=75% 
+
+
+apex class 
+vf controller classes 
+triggers
+batch andschedule 
+webservices & apis 
+
+
+
+Classname - mathoperations 
+test class name -  mathoperationsTest 
+
+
+classname - Accounthandler
+test class name - Testaccounthandler 
+
+
+classname - Positionhelper
+test class name - Test_positionhelper
+
+classname - hiringmanagerhelper
+test class name - hiringmanagerhelper__Test 
+
+
+@isTest 
+<private/public> class <testclasasnme>{
+	//logic 
+
+}
+
+
+
+@istest 
+public class Test_positionhelper{
+
+   // logic 
+
+}
+
+we have to prepare testmethod inside the testclass which will indicate the starting point of the application testing 
+
+test method alwasy static 
+test method does not return any value (use void return type)
+test method should be defined with keyword "testmethod"
+we can  call normal methods from test methods 
+
+
+public static testmethod void <methodname>(){
+	//logic for testing 
+
+}
+
+
+
+
+@istest
+public class hiringmanagerhelper__Test{
+
+	static testmethod void hiringmanagertest(){
+
+		  // we will craeted recordsv 
+
+		  // will validate records been created ornot 
+	}
+}
 
 
